@@ -28,7 +28,7 @@ class TodoController extends BaseController
 
     public function showBy($filter)
     {
-        //$todo=[];
+        
         switch ($filter) {
 
             case 'completed':
@@ -73,14 +73,48 @@ class TodoController extends BaseController
     {
 
     }
+
+    public function setComplete($id) 
+    {
+        $resp = false;
+        $todo = Todo::find($id);
+        if($todo->exists) {
+            if($todo->complete == 0) {
+                $todo->complete = 1;    
+            } else {
+                $todo->complete = 0;
+            }
+            
+            $todo->save();
+
+            $resp = true;
+        }
+        return response()->json([
+            'data' => [
+                $todo
+            ]
+        ]);
+    }
     
     public function update(Request $request) 
     {
     	//
     }
 
-    public function delete(Request $request)
+    public function destroy($id)
     {
+        $todo = Todo::find($id);
+        if(!is_null($todo)) {
+            $todo->delete();
+            return response(null, Response::HTTP_NO_CONTENT);    
+        } else {
+            return response()->json([
+                'data' => [
 
+                    'error' => 'Model not found'
+                ]
+            ]);
+        }
+        
     }
 }
