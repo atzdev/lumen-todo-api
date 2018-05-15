@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Todo extends Model {
     
     protected $fillable = [
-        'body', 'user_id', 'complete'
+        'body', 'user_id', 'priority', 'complete'
     ];
     
     public function user() 

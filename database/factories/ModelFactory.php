@@ -24,5 +24,6 @@ $factory->define(App\Todo::class, function (Faker\Generator $faker) {
         'user_id' => App\User::all()->random()->id,
         'body' => $faker->sentence(10),
         'complete' => rand(0,1),
+        'priority' => rand(1,5)
     ];
 });
