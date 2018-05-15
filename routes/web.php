@@ -12,6 +12,7 @@ $router->group(['prefix' => 'api/v1', 'middleware' => 'jwt.auth'], function() us
 
 	$router->post('todo', 'TodoController@store');
 	$router->post('todo/{id}', 'TodoController@setComplete');
+	$router->put('todo/{id}', 'TodoController@update');
 	$router->delete('todo/{id}', 'TodoController@destroy');
 });
 

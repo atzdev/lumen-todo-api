@@ -96,9 +96,26 @@ class TodoController extends BaseController
         ]);
     }
     
-    public function update(Request $request) 
+    public function update(Request $request, $id) 
     {
-    	//
+    	$todo = Todo::find($id);
+
+        if($todo->exists) {
+            $todo->update($request->all());
+            $todo->save();
+
+            return response()->json([
+                'data' => [
+                    $todo
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'data' => [
+                    'error' => 'Model not found'
+                ]
+            ]);
+        }
     }
 
     public function destroy($id)
